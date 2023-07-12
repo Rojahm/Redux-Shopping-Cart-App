@@ -34,12 +34,12 @@ export const cartSlice = createSlice({
     },
     removeFromCart(state, action) {
       const itemToRemove = state.itemsList.find(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload
       );
-      if (itemToRemove.quantity >= 0) {
-        itemToRemove.quantity--;
-        itemToRemove.totalPrice -= itemToRemove.price;
-      } else {
+      itemToRemove.quantity--;
+      itemToRemove.totalPrice -= itemToRemove.price;
+      if (itemToRemove.quantity <= 0) {
+        state.itemsList.splice(state.itemsList.indexOf(itemToRemove), 1);
       }
     },
     showCart(state) {
