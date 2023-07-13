@@ -7,13 +7,13 @@ import CartItems from "./CartItems";
 
 const Layout = () => {
   let total = useSelector((state) => state.cart.totalCartPrice);
-
+  let showCart = useSelector((state) => state.cart.showCart);
   return (
     <React.Fragment>
       <div className="layout">
         <Header />
         <Products />
-        <CartItems />
+        {showCart && <CartItems />}
         <div className="total-price">
           <h3>Total: ${total}</h3>
           <button className="orderBtn">Place Order</button>
