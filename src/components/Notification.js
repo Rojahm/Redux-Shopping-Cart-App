@@ -9,7 +9,6 @@ const Notification = ({ type, message }) => {
     dispatch(showNotification({ open: false }));
   };
   const open = useSelector((state) => state.notification.open);
-  console.log(open);
   return (
     <div>
       <br />
