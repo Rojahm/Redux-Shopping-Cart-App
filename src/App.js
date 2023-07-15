@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Auth from "./components/Auth";
 import Layout from "./components/Layout";
@@ -7,12 +7,17 @@ import Notification from "./components/Notification";
 import { showNotification } from "./reducers/notificationSlice";
 
 function App() {
+  const [firstRender, setFirstRender] = useState(true);
   const dispatch = useDispatch();
   const notificationType = useSelector((state) => state.notification.type);
   const notificationMsg = useSelector((state) => state.notification.message);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const cart = useSelector((state) => state.cart);
   useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    }
     const sendRequest = async () => {
       //sending req
       dispatch(
@@ -53,6 +58,7 @@ function App() {
   return (
     <div className="App">
       <Notification type={notificationType} message={notificationMsg} />
+
       {!isLoggedIn && <Auth />}
       {isLoggedIn && <Layout />}
     </div>
